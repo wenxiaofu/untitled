@@ -19,20 +19,16 @@ def tokenize(code):
     print(tok_regex)
     line_num = 1
     line_start = 0
-    print(re.finditer(tok_regex, code))
     for mo in re.finditer(tok_regex, code):
-        print(mo)
         kind = mo.lastgroup
-       # print(kind)
         value = mo.group(kind)
-        print(value)
         if kind == 'NEWLINE':
             line_start = mo.end()
             line_num += 1
         elif kind == 'SKIP':
             pass
         elif kind == 'MISMATCH':
-            raise RuntimeError(f'{value!r} unexpected on line {line_num}')
+            raise RuntimeError('{value!r} unexpected on line {line_num}')
         else:
             if kind == 'ID' and value in keywords:
                 kind = value
