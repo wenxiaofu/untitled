@@ -1,0 +1,75 @@
+1 安装git
+2 在github网站注册账号
+3 创建版本
+mkdir learngit
+cd learngit
+git init
+4 添加文件到版本库，使用Notepad++编辑
+在目录下创建一个文件
+readme.txt
+git add readme.txt
+5 提交到版本库
+git commit -m "wrote a readme file"
+6 提交多个文档
+$ git add file1.txt
+$ git add file2.txt file3.txt
+$ git commit -m "add 3 files.
+7 查看git的状态
+git status
+8 比较文件
+git diff readme.txt
+9 查看提交记录和版本状态
+git log
+git log --pretty=oneline
+10 退回到之前的版本
+git reset --hard HEAD^
+上上个版本
+git reset --hard HEAD^^
+当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100
+11 回到未来
+git reset --hard 3628164   后面的数字的commitid 不需要写全
+12 工作区和暂存区
+add是add到暂存区
+进行commit以后才提交到工作区
+13 撤销修改
+git checkout -- readme.txt
+14 add到暂存区以后，撤销修改
+git reset HEAD readme.txt
+15  删除本地的直接rm
+16 删除版本库中的
+git rm test.txt
+
+
+使用远程库：
+17 使用远程的github
+ssh-keygen -t rsa -C "youremail@example.com"
+登陆GitHub，打开“Account settings”，“SSH Keys”页面：
+然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容
+18 上传到远程
+先在github创建一个目录
+git remote add origin git@github.com:michaelliao/learngit.git
+已经add origin以后，只需要执行push origin master就行了
+git push origin master
+
+19 从远程库进行克隆项目
+git clone git@github.com:michaelliao/gitskills.git
+
+20 克隆以后只需要使用pull就可以从分支中下载下来
+git pull origin dev
+
+分支管理：
+1 创建分支
+git checkout -b dev
+上面命令相当于下面两个命令
+$ git branch dev
+$ git checkout dev
+2 查看当前分支
+git branch
+3 切换分支
+git checkout master
+3 合并分支到当前分支
+git merge dev
+4 删除分支
+git branch -d dev
+5 并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息，禁用Fast forward模式
+git merge --no-ff -m "merge with no-ff" dev

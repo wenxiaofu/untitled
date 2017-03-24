@@ -1,0 +1,31 @@
+1 flask框架介绍
+	1）路由应用和请求方式
+		语法：@app.route('/', methods=['GET', 'POST'])
+	2）request使用
+		获取表格参数
+		request.form['username']
+	3）render_template
+		跳转到某一个页面
+		return render_template('signin.html')
+
+2 mvc三层模型
+	1 model层给view层传递参数
+	{{username}}
+	
+	2 control层使用：
+		用户控制传递什么参数，跳转到哪个页面
+		2 control层进行跳转传参，很长的时候，使用"\"隔开
+		
+		 return render_template('success.html',message='Bad username or password', username=\
+				request.form['username'])
+	3 view层使用
+		html语句
+		python嵌入：view层里面可以直接使用python代码，view层接收数据，进行显示
+		{% if message %}
+		<p>{{ message }}</p>
+		{% else %}
+		<p>Welcome, {{ username }}!</p>
+		{% endif %}
+
+	
+  
