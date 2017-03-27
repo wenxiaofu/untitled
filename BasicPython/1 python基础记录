@@ -1,0 +1,12 @@
+1 help和dir
+	1)查看模块里面有那些方法
+	dir(module)
+	dir(asyncio.open_connection)
+	2)查看某一个方法的帮助文档
+	help(module)
+	help(asyncio.open_connection)
+
+2 其他方法
+	使用ctrl+左键，直接进入到对应的方法
+	__init__.py
+	里面有各个类和方法import * 就是import了__all__里面的内容，再可以查看到具体的方法

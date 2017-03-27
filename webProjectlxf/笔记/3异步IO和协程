@@ -1,0 +1,80 @@
+﻿1 异步IO
+
+2 协程Coroutine
+	1generator
+	consumer就是一个子函数，produce是主函数
+	1）c.send(None)进行初始话
+	2）r=c.send(i) 调用consumer,同时给consumer传递一个参数i，使用r接收consumer传回来的参数
+	3）执行完2）进入到consumer函数执行，n=yield r 接收r=c.send(i)传过来的参数保存到n里面
+	4）执行完成后，回到produce里面，继续执行produce里面r=c.send(i)后面的部分
+	5）c.close()关闭consumer，整个过程结束，与c.send(none)形成对应
+		def consumer():#5#7
+		r = ''
+		while True:
+			n = yield r
+			if not n:
+				print('not any product %s' %n)
+				r = 'not ok'
+			print('[CONSUMER] Consuming %s...' % n)
+			r = '200 OK'
+
+	def produce(c):
+		c.send(None)#3
+		i = 0
+		num = 5
+		while i < num:
+			r = c.send(i)#4
+
+			print('[PRODUCER] Producing %s...' % i)
+			r = c.send(i)#6
+			i +=1#8
+			print('[PRODUCER] Consumer return: %s' % r)
+		c.close()#9
+
+	c = consumer()#1
+	produce(c)#2
+
+3 python3.4的时候使用的是@asyncio.coroutine
+	将需要异步执行的放到一个asyncio.coroutine里面
+	通过#注释的3步进行调用
+
+	1) 掌握yield from 
+	2) 掌握@asyncio.coroutine
+	3) 掌握task
+	
+	import threading
+	import asyncio
+
+	@asyncio.coroutine
+	def hello():
+		print('Hello world! (%s)' % threading.currentThread())
+		yield from asyncio.sleep(1)
+		print('Hello again! (%s)' % threading.currentThread())
+	# 获取EventLoop:
+	loop = asyncio.get_event_loop()
+	#tasks执行几次
+	tasks = [hello(), hello()]
+	#运行coroutine
+	loop.run_until_complete(asyncio.wait(tasks))
+	#结束EventLoop
+	loop.close()
+		
+	
+	
+3 async,await是Python 3.5版本引入的标准库，直接内置了对异步IO的支持
+	
+	import asyncio
+ 
+	async def compute(x, y):
+		print("Compute %s + %s ..." % (x, y))
+		await asyncio.sleep(10.0)
+		return x + y
+	 
+	async def print_sum(x, y):
+		result = await compute(x, y)
+		print("%s + %s = %s" % (x, y, result))
+	 
+	loop = asyncio.get_event_loop()
+	tasks = [print_sum(1,2),print_sum(3,4)]
+	loop.run_until_complete(asyncio.wait(tasks))
+	loop.close()
