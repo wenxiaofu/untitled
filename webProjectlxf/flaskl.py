@@ -13,6 +13,7 @@ def signin_form():
     return render_template('signin.html')
 
 @app.route('/signin', methods=['POST'])
+
 def signin():
     # 需要从request对象读取表单内容：
     if request.form['username']=='admin' and request.form['password']=='123456':

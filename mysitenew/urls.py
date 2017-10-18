@@ -2,7 +2,7 @@ from django.conf.urls import url
 from mysitenew import views
 from mysitenew import calview
 
-app_name = 'mysite'
+app_name = 'mysitenew'
 urlpatterns = [
     # ex: /polls/
     url(r'^add/$',calview.add, name='add'),

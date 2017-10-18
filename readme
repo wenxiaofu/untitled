@@ -1,0 +1,8 @@
+1 直接选中manage.py右键，run server就可以运行了
+
+2 注册的app在untitled下面
+
+3 主要注册了两个app，一个是mysite一个是mysitenew
+
+4 django忘记了用户名和密码：
+http://www.cnblogs.com/liyiran/p/4123637.html
